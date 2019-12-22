@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<!--
+    <th:block th:include="include1 :: asider-css"></th:block>
+-->
+
+
+    <script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+
+    <link rel="stylesheet" href="/css/metroStyle/metroStyle.css" type="text/css"/>
+    <!--
+    其他两种css风格样式
+    <link rel="stylesheet" href="ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="ztree/css/awesomeStyle/awesome.css" rel="stylesheet" type="text/css" />
+     -->
+    <script type="text/javascript" src="/js/jquery.ztree.all.min.js"></script>
+
+</head>
+<body class="hold-transition skin-purple sidebar-mini">
+<!--<div class="wrapper">
+
+&lt;!&ndash;
+    <header class="main-header" th:include="header::header"></header>
+&ndash;&gt;
+    &lt;!&ndash; 页面头部 /&ndash;&gt;
+
+    &lt;!&ndash; 导航侧栏 &ndash;&gt;
+&lt;!&ndash;
+    <aside class="main-sidebar" th:include="asider::sidebar"></aside>
+&ndash;&gt;
+    &lt;!&ndash; 内容区域 &ndash;&gt;
+    <div class="content-wrapper">-->
+
+        <!-- 内容头部 -->
+        <!--<section class="content-header">
+            <h1>
+                控制面板
+                <small>首页</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="all-admin-index.html"><i class="fa fa-dashboard"></i> 首页</a></li>
+            </ol>
+        </section>-->
+        <!-- 内容头部 /-->
+
+        <!-- 正文区域 -->
+<!--
+        <section class="content">
+-->
+            <div>
+                <ul id="treeDemo" class="ztree"></ul>
+            </div>
+            <script>
+                var settingss = {
+                    data: {
+                        simpleData: {
+                            enable: true,  //true 、 false 分别表示 使用 、 不使用 简单数据模式
+                            idKey: "id",  //节点数据中保存唯一标识的属性名称
+                            pIdKey: "parentId",    //节点数据中保存其父节点唯一标识的属性名称
+                            rootPId: -1  //用于修正根节点父节点数据，即 pIdKey 指定的属性值
+                                    },
+                        key: {
+                            name: "menuName"  //zTree 节点数据保存节点名称的属性名称  默认值："name"
+                        }
+                    },
+                    check: {
+                        enable: true,  //true 、 false 分别表示 显示 、不显示 复选框或单选框
+                        nocheckInherit: true  //当父节点设置 nocheck = true 时，设置子节点是否自动继承 nocheck = true
+                    }
+                };
+
+                //数据
+                /*var zNodes = [
+                    //注意，数据中的 menuName 必须与 settingss 中key 中定义的name一致，否则找不到
+                    {
+                        menuName: "父节点1", open: true, children: [
+                            {menuName: "子节点1"}, {menuName: "子节点2"}]
+                    },
+                    {
+                        menuName: "父节点2", open: true, children: [
+                            {menuName: "子节点3"}, {menuName: "子节点4"}]
+                    }
+                ];
+                zTreeObj = $.fn.zTree.init($("#treeDemo"), settingss, zNodes); //初始化树
+                zTreeObj.expandAll(true);   //true 节点全部展开、false节点收缩*/
+                $(document).ready(function(){
+                    $.ajax({
+                        type: "get",
+                        url: "http://localhost:8080/getMenuTestList",
+                        async: true,
+                        success:function(data){
+                            zTreeObj = $.fn.zTree.init($("#treeDemo"), settingss, data.menulist); //初始化树
+                            zTreeObj.expandAll(true);   //true 节点全部展开、false节点收缩
+                        }
+                    });
+                });
+
+            </script>
+<!--
+        </section>
+-->
+
+<!--
+    </div>
+</div>
+-->
+
+<!--
+    <th:block th:include="include1 :: asider-js"></th:block>
+-->
+
+</body>
+</html>

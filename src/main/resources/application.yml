@@ -1,0 +1,15 @@
+server:
+  port: 8080
+logging:
+  level:
+    cn.itcast : debug
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/heimashop_32
+    username: root
+    password: 123456
+mybatis:
+  type-aliases-package: com.yu.thymeleaf.domain
+
+  # mapper-locations: mapper/*.xml
